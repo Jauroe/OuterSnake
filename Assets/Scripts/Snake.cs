@@ -6,11 +6,17 @@ public class Snake : MonoBehaviour
     private Vector2Int gridPosition;
     private float gridMoveTimer;
     private float gridMoveTimerMax;
+    private LevelGrid levelGrid;
 
+    public void Setup(LevelGrid levelGrid)
+    {
+        this.levelGrid = levelGrid;
+    }
+    
     private void Awake()
     {
         gridPosition = new Vector2Int(10, 10);
-        gridMoveTimerMax = 1f;
+        gridMoveTimerMax = 0.25f;
         gridMoveTimer = gridMoveTimerMax;
         gridMoveDirection = new Vector2Int(1, 0);
     }
@@ -61,6 +67,12 @@ public class Snake : MonoBehaviour
         }
     }
 
+    public Vector2Int GetGridPosition()
+    {
+        return gridPosition;
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
     private void HandleGridMovement()
     {
         gridMoveTimer += Time.deltaTime;
@@ -69,6 +81,8 @@ public class Snake : MonoBehaviour
             gridPosition += gridMoveDirection;
             gridMoveTimer -= gridMoveTimerMax;
             transform.position = new Vector3(gridPosition.x, gridPosition.y);
+            
+            levelGrid.SnakeMoved(gridPosition);
         }
     }
 }
