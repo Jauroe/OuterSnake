@@ -10,10 +10,4 @@ public class GameHandler : MonoBehaviour
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
